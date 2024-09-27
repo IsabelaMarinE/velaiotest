@@ -1,0 +1,19 @@
+.contaner-form{
+  padding: 20px;
+}
+
+.mat-dialog-container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+h1 {
+  color: #3f51b5;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}

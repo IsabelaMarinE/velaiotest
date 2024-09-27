@@ -3,7 +3,7 @@ import { combineReducers } from '@ngrx/store';
 //Reducers
 import { TaskReducer, TaskState } from './task.reducer';
 
-export const taskStoreFeatureKey = 'OrderStore';
+export const taskStoreFeatureKey = 'TaskStore';
 
 export type TaskStoreState = {
   taskStore: TaskState

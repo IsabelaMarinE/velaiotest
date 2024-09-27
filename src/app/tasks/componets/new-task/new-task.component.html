@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Nueva Tarea</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content class="contaner-form">
+    <mat-form-field class="full-width">
+      <mat-label>Nombre Tarea</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Usuario Responsable</mat-label>
+      <mat-select formControlName="userId">
+        <mat-option *ngFor="let opcion of listUsers" [value]="opcion.id">
+          {{ opcion.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="completed">
+        <mat-option value="false">Pendiente</mat-option>
+        <mat-option value="true">Completada</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-button
+      (click)="onNoClick()"
+      color="primary">Cerrar</button>
+    <button
+      mat-button
+      type="submit"
+      [disabled]="form.invalid"
+      color="primary"
+      >{{isUpdated ? 'Actualizar': 'Crear'}}</button>
+  </div>
+</form>

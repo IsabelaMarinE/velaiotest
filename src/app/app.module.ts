@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentsModule } from './components/components.module';
 import { TaskModule } from './tasks/tasks.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TaskModule } from './tasks/tasks.module';
     HttpClientModule,
     ComponentsModule,
     TaskModule,
+    UsersModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot()
   ],

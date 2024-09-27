@@ -38,15 +38,15 @@ export const TaskReducer = createReducer(
     // Get Task
     on(TaskActions.loadTask, (state: TaskState) => ({
         ...state,
-        Order: undefined
+        Task: undefined
     })),
     on(TaskActions.loadTaskSuccess, (state: TaskState, { response }) => ({
         ...state,
-        Order: response
+        Task: response
     })),
     on(TaskActions.loadTaskFail, (state: TaskState) => ({
         ...state,
-        Order: undefined
+        Task: undefined
     })),
 
     // Create Task

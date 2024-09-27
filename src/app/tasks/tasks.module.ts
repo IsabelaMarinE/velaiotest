@@ -16,7 +16,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
-import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -35,7 +35,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatIconModule,
     MatTableModule,
-    MatChipsModule,
+    MatDialogModule,
     StoreModule.forFeature(taskStoreFeatureKey, taskStoreReducer),
     EffectsModule.forFeature(TasksEffects)
   ],
