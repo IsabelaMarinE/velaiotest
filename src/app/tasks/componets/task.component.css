@@ -1,0 +1,23 @@
+.pill {
+  padding: 2px;
+  border-radius: 1rem;
+  color: #fff;
+  cursor: default;
+  text-align: center;
+  width: 90px;
+}
+
+.pending {
+  background-color: #c22200;
+}
+
+.complete {
+  background-color: green;
+}
+
+.term {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
