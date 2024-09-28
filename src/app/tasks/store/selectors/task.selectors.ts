@@ -30,3 +30,9 @@ export const selectUpdateTaskResponse = createSelector(
     state.taskStore.updateTaskResponse
 );
 
+export const selectUpdateStatusTaskResponse = createSelector(
+  selectTaskStoreState,
+  (state: fromTaskStore.TaskStoreState) =>
+    state.taskStore.updateStatusTaskResponse
+);
+

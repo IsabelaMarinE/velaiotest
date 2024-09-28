@@ -71,6 +71,22 @@ export class TasksEffects {
         )
     )
 
+    updateStatusTask$ = createEffect(() =>
+      this.actions$.pipe(
+          ofType(TaskActions.updateStatusTask),
+          switchMap((action) =>
+              from(this._taskService.updateStatusTask(action.request, action.id)).pipe(
+                  map((response) => {
+                      return TaskActions.updatedStatusTaskSuccess({ response })
+                  }),
+                  catchError(() => {
+                      return of(TaskActions.updatedStatusTaskFail());
+                  })
+              )
+          )
+      )
+  )
+
     constructor(
         private actions$: Actions,
         private _taskService: TasksService

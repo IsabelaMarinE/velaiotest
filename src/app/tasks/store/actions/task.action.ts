@@ -3,6 +3,7 @@ import { TaskModel } from '../../models/task.model';
 import { CreateTaskRequest } from '../../models/create-task.request';
 import { UpdateTaskRequest } from '../../models/update-task.request';
 import { GetTaskRequest } from '../../models/get-task.request';
+import { UpdateStatusTaskRequest } from '../../models/update-status-task.request';
 
 
 export const clearTaskFlags = createAction('[Tasks] Clear Task Flags');
@@ -48,13 +49,26 @@ export const createTaskFail = createAction(
 
 // --------------Updated Task
 export const updateTask = createAction(
-  '[Tasks] Create Task',
+  '[Tasks] Update Task',
   props<{ request: UpdateTaskRequest}>()
 );
 export const updatedTaskSuccess = createAction(
-  '[Tasks] Create Task Success',
+  '[Tasks] Update Task Success',
   props<{ response: TaskModel}>()
 );
 export const updatedTaskFail = createAction(
-  '[Tasks] Create Task Fail'
+  '[Tasks] Update Task Fail'
+);
+
+// --------------Updated Status Task
+export const updateStatusTask = createAction(
+  '[Tasks] Update Status Task',
+  props<{ request: UpdateStatusTaskRequest, id: number}>()
+);
+export const updatedStatusTaskSuccess = createAction(
+  '[Tasks] Update Status Task Success',
+  props<{ response: TaskModel}>()
+);
+export const updatedStatusTaskFail = createAction(
+  '[Tasks] Update Status Task Fail'
 );

@@ -9,6 +9,7 @@ export interface TaskState {
     Task: TaskModel | undefined;
     createTaskResponse: TaskModel | undefined;
     updateTaskResponse: TaskModel | undefined;
+    updateStatusTaskResponse: TaskModel | undefined;
 }
 
 export const initialTaskState: TaskState = {
@@ -16,6 +17,7 @@ export const initialTaskState: TaskState = {
     Task: undefined,
     createTaskResponse: undefined,
     updateTaskResponse: undefined,
+    updateStatusTaskResponse: undefined
 };
 
 export const TaskReducer = createReducer(
@@ -24,8 +26,9 @@ export const TaskReducer = createReducer(
         ...state,
         TasksResponse: undefined,
         createTaskResponse: undefined,
-        Order: undefined,
+        Task: undefined,
         updateTaskResponse: undefined,
+        updateStatusTaskResponse: undefined
     })),
     on(TaskActions.loadTasksSuccess, (state: TaskState, { response }) => ({
         ...state,
@@ -76,6 +79,20 @@ export const TaskReducer = createReducer(
         ...state,
         updateTaskResponse: undefined
     })),
+
+    // Update Status Task
+    on(TaskActions.updateStatusTask, (state: TaskState) => ({
+      ...state,
+      updateStatusTaskResponse: undefined
+  })),
+  on(TaskActions.updatedStatusTaskSuccess, (state: TaskState, { response }) => ({
+      ...state,
+      updateStatusTaskResponse: response
+  })),
+  on(TaskActions.updatedStatusTaskFail, (state: TaskState) => ({
+      ...state,
+      updateStatusTaskResponse: undefined
+  })),
 
 );
 

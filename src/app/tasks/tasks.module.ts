@@ -17,6 +17,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatIconModule,
     MatTableModule,
     MatDialogModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
     StoreModule.forFeature(taskStoreFeatureKey, taskStoreReducer),
     EffectsModule.forFeature(TasksEffects)
   ],

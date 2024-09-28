@@ -40,7 +40,7 @@ import { CreateTaskRequest } from '../../models/create-task.request';
 })
 export class NewTaskComponent implements OnInit, OnDestroy {
   form: FormGroup;
-  public listUsers: UserModel[] = []
+  public listUsers: UserModel[] = [];
   public ngDestroyed$ = new Subject();
   public id: number = 0;
   public isUpdated: boolean = false;

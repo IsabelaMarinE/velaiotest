@@ -5,6 +5,7 @@ import { TaskModel } from '../models/task.model';
 import { CreateTaskRequest } from '../models/create-task.request';
 import { UpdateTaskRequest } from '../models/update-task.request';
 import { GetTaskRequest } from '../models/get-task.request';
+import { UpdateStatusTaskRequest } from '../models/update-status-task.request';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -33,5 +34,10 @@ export class TasksService {
 
   updateTask(request: UpdateTaskRequest): Observable<TaskModel> {
     return this.http.put<TaskModel>(`${this.url}/todos/${request.id}`, request, httpOptions);
+  }
+
+  updateStatusTask(request: UpdateStatusTaskRequest, id: number): Observable<TaskModel> {
+    console.log('request', request, 'id', id)
+    return this.http.patch<TaskModel>(`${this.url}/todos/${id}`, request, httpOptions);
   }
 }

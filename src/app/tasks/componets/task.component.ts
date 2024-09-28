@@ -7,12 +7,15 @@ import * as _ from 'lodash';
 import { Store } from '@ngrx/store';
 import * as TasksActions from '../store/actions/task.action';
 import * as TaskSelectors from '../store/selectors/task.selectors';
+import * as UserSelectors from '../../users/store/selectors/user.selector';
+import * as UserActions from '../../users/store/actions/user.actions';
 import { TaskStoreState } from '../store/reducers/store.reducer';
 import { MatTableDataSource } from '@angular/material/table';
 import { NewTaskComponent } from './new-task/new-task.component';
-import { CreateTaskRequest } from '../models/create-task.request';
-import { GetTaskRequest } from '../models/get-task.request';
 import { ViewTaskComponent } from './view-task/view-task.component';
+import { UpdateStatusTaskRequest } from '../models/update-status-task.request';
+import { UserStoreState } from 'src/app/users/store/reducers/store.reducer';
+import { UserModel } from 'src/app/users/models/user.model';
 
 @Component({
   selector: 'app-tasks',
@@ -25,11 +28,14 @@ export class TaskComponent implements OnInit, OnDestroy {
   public taskData = new BehaviorSubject<TaskModel[]>([]);
   public dataSource = new MatTableDataSource<TaskModel>();
   public ngDestroyed$ = new Subject();
+  public listUsers: UserModel[] = [];
+  public isLoading: boolean = true;
 
   private subscriptions = new Subscription()
 
   constructor(
     private taskStore: Store<TaskStoreState>,
+    private userStore: Store<UserStoreState>,
     public dialog: MatDialog
   ){}
 
@@ -41,6 +47,9 @@ export class TaskComponent implements OnInit, OnDestroy {
       this.taskData.subscribe(data => {
         this.dataSource.data = data;
       })
+    );
+    this.subscriptions.add(
+      this.userStore.dispatch(UserActions.loadUsers())
     )
     this.taskSubscriptions();
   }
@@ -88,6 +97,21 @@ export class TaskComponent implements OnInit, OnDestroy {
     });
   }
 
+  public cambiarEstado(element: TaskModel){
+    let request = new UpdateStatusTaskRequest();
+    request = _.merge(request, { completed: !element.completed });
+    this.taskStore.dispatch(TasksActions.updateStatusTask({request, id: element.id}));
+  }
+
+  public getUserName(userId: number): string {
+    if(this.listUsers){
+      const user = this.listUsers.find(user => user.id === userId);
+      return user ? user.username : 'Desconocido';
+    } else{
+      return 'Desconocido';
+    }
+  }
+
   private taskSubscriptions() {
     this.subscriptions.add(
       this.taskStore
@@ -106,6 +130,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((response) => {
         if(response){
+          this.isLoading = false;
           this.taskStore.dispatch(TasksActions.loadTasks())
           Swal.fire({
             icon: 'success',
@@ -122,9 +147,37 @@ export class TaskComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngDestroyed$))
       .subscribe((response) => {
         if(response){
+          this.isLoading = false;
           this.taskStore.dispatch(TasksActions.loadTasks())
         }
       })
+    )
+
+    this.subscriptions.add(
+      this.taskStore
+      .select(TaskSelectors.selectUpdateStatusTaskResponse)
+      .pipe(takeUntil(this.ngDestroyed$))
+      .subscribe((response) => {
+        if(response){
+          this.isLoading = false;
+          Swal.fire({
+            icon: 'success',
+            title: 'Tarea Actualizada',
+            text: 'Estado Actualizado Exitosamente'
+          });
+          this.taskStore.dispatch(TasksActions.loadTasks())
+        }
+      })
+    )
+
+    this.subscriptions.add(
+      this.userStore
+        .select(UserSelectors.selectUsers)
+        .pipe(takeUntil(this.ngDestroyed$))
+        .subscribe((response) => {
+          this.isLoading = false;
+          this.listUsers = response!;
+        })
     )
   }
 }
